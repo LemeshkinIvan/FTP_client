@@ -234,7 +234,7 @@ namespace ftpExample
             r.UseBinary = Binary;
             r.EnableSsl = EnableSsl;
             r.UsePassive = Passive;
-            address = "ftp://176.192.84.94";
+          
             return r;
         }
 
