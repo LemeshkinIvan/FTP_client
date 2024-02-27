@@ -1,0 +1,114 @@
+﻿<Window x:Class="ftpExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ftpExample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1500" ResizeMode="NoResize">
+    <Grid Margin="2,0,-2,0">
+        <ListView Margin="672,136,245,175" x:Name="lbx_Second" ItemsSource="{Binding}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Файл/папка" Width="500">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Height="36">
+                                        <Image Width="32" Height="32" Source="{Binding Type}" />
+                                        <TextBlock Text="{Binding Name}" Margin="12,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Размер" Width="200" DisplayMemberBinding="{Binding FileSize}"/>
+                        <GridViewColumn Header="Дата создания" Width="200" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Открыть" Click="ftp_openFolder"></MenuItem>
+                    <MenuItem Header="Создать" Click="ftp_createFile"></MenuItem>
+                    <MenuItem Header="Переименовать" Click="ftp_createFile"></MenuItem>
+                    <MenuItem Header="Скопировать" Click="ftp_copyFile"></MenuItem>
+                    <MenuItem Header="Вставить" Click="ftp_pasteFile"></MenuItem>
+                    <MenuItem Header="Удалить" Click="ftp_deleteFile"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        <TextBox HorizontalAlignment="Left" Margin="829,38,0,0" TextWrapping="Wrap" 
+                 Text="Логин" 
+                 FontStyle="Italic"
+            VerticalAlignment="Top" Name="txt_adres" Width="302" Height="28" TextChanged="TextBox_TextChanged" Visibility="Hidden"/>
+        <ListView Name="lbx_local" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,134,865,175" SelectionChanged="lbx_local_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Файл/папка" Width="290">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Height="36">
+                                        <Image Width="32" Height="32" Source="{Binding Type}" />
+                                        <TextBlock Text="{Binding Key}" Margin="12,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Тип" Width="90" DisplayMemberBinding="{Binding Value}"/>
+                        <GridViewColumn Header="Дата создания" Width="90" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Открыть" Click="openFile">
+                    </MenuItem>
+                    <MenuItem Header="Создать" >
+                        <MenuItem Header="Файл" Click="createFile"></MenuItem>
+                        <MenuItem Header="Папку" Click="createFolder"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Вставить" Click="pasteFile"></MenuItem>
+                    <MenuItem Header="Переименовать" Click="renameFile"></MenuItem>
+                    <MenuItem Header="Скопировать" Click="copyFile"></MenuItem>
+                    
+                    <MenuItem Header="Удалить" Click="deleteFile"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        <!--StackPanel at. here-->
+        <ComboBox Name="comboDisk" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="73" Height="26" SelectionChanged="comboDisk_SelectionChanged"/>
+        <TextBox Name="txtSearch" HorizontalAlignment="Left" Margin="10,652,0,0" 
+                     TextWrapping="Wrap" 
+                     Text="Строка поиска"
+                     MaxLength="256"
+                     VerticalAlignment="Top"
+                    Width="534" Height="38"/>
+
+        <Label Name="lblCurrPath" Content="Текущий путь" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Width="365"/>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Файлы">
+                <MenuItem Header="New Project" ></MenuItem>
+                <MenuItem Header="Open Project" >
+                    <MenuItem Header="WinForms"></MenuItem>
+                    <MenuItem Header="WPF" ></MenuItem>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Сеть" >
+                <MenuItem Header="FTP-сервер" Click="btnFTP"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Настройки" Click="getSettingsPage"></MenuItem>
+        </Menu>
+        <TextBox x:Name="txtSearch2" HorizontalAlignment="Left" Margin="656,652,0,0" 
+            TextWrapping="Wrap" 
+            Text="Строка поиска"
+            MaxLength="256"
+            VerticalAlignment="Top"
+            Width="483" Height="38"/>
+        <Button Name="btnLocal" Content="Поиск" HorizontalAlignment="Left" Margin="1166,652,0,0" VerticalAlignment="Top" Height="40" Width="73"/>
+        <Button Name ="btnSearch2" Content="Поиск" HorizontalAlignment="Left" Margin="565,652,0,0" VerticalAlignment="Top" Height="39" Width="70" Click="btnSearch2_Click"/>
+        <Label Name="lblDiskSize" Content="Label" HorizontalAlignment="Left" Margin="117,40,0,0" VerticalAlignment="Top" Width="278" Height="26"/>
+    </Grid>
+</Window>
